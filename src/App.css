@@ -40,3 +40,12 @@
 .read-the-docs {
   color: #888;
 }
+.btn{
+  display: inline-block;
+  padding: 15px 15px;
+  border-radius: 10px;
+  border-color: rgb(21, 15, 51);
+  border-width: 5px;
+  background-color: black;
+  color: white;
+}
