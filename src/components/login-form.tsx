@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
+import { useNavigate } from 'react-router-dom';
 import {
   Card,
   CardContent,
@@ -9,18 +10,34 @@ import {
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { useGoogleLogin } from "@react-oauth/google"
+import Cookies from "js-cookie";
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const navigate = useNavigate()
+
+  const login = useGoogleLogin({
+    onSuccess: (data) => {
+      console.log('Google Login successful', data);
+      Cookies.set('accessToken', data.access_token, { expires: 7 }); // Store the access token in cookies for 7 days
+      navigate("Navbar");
+    },
+    onError:()=> {
+      console.log('Google Login failed');
+      
+    }
+  })
+
   return (
     <div className={cn("flex flex-col gap-6 ", className)} {...props}>
       
       <Card>
         <CardHeader className="text-center ">
-          <CardTitle className="text-xl">Welcome back</CardTitle>
-          <CardDescription>
+          <CardTitle className="text-xl" style={{color:"white"}}>Welcome back</CardTitle>
+          <CardDescription style={{color:"#646cff"}}>
             Login with your Apple or Google account
           </CardDescription>
         </CardHeader>
@@ -39,8 +56,7 @@ export function LoginForm({
                   </svg>
                   Login with Apple
                 </Button>
-                <Button onClick={()=>
-                  alert("login pending")}
+                <Button onClick={() => login()}
                 variant="outline" className="w-full">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                     <path
