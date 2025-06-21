@@ -1,6 +1,6 @@
 import Navbar from "./pages/Navbar"
 import "../App.css"
-import { AppSidebar } from "./pages/AppSidebar"
+import Pricecards from "./pages/pricecards"
 
 
 const HomePage = () => {
@@ -8,7 +8,9 @@ const HomePage = () => {
  <>
 
         <Navbar />
-          <AppSidebar/>
+         
+          <Pricecards/>
+          
         
    
     </>
